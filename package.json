@@ -1,6 +1,6 @@
 {
   "name": "@fivanovic98/react-trigger-modal",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Imperatively trigger React modals as awaitable Promises",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
