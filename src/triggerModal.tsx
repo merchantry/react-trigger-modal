@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { ModalProps } from './interfaces';
 import { GetModalSubmitDataType } from './types';
 import { classNames, disableBodyScroll, enableBodyScroll, onKeyDownCallback } from './utils/html';
+import { modalBus } from './modalBus';
 
 type ModalConfig = { animate: boolean };
 type TriggerModalProps<R extends ModalProps<T>, T> = Omit<R, 'onSubmit' | 'onClose'>;
+
+let modalCounter = 0;
 
 function getOrCreateModalRoot(): HTMLDivElement {
   let el = document.getElementById('modal-root');
@@ -23,6 +26,22 @@ export default function triggerModal<R extends ModalProps<T>, T = GetModalSubmit
   { animate }: ModalConfig = { animate: true },
 ): Promise<T | undefined> {
   return new Promise(resolve => {
+    const dispatched = modalBus.show({
+      id: String(++modalCounter),
+      Modal: Modal as React.FC<any>,
+      props: _props,
+      config: { animate },
+      resolve,
+    });
+
+    if (dispatched) return;
+
+    // Fallback: no ModalProvider mounted. Hooks inside modals will not work.
+    console.warn(
+      '[react-trigger-modal] No <ModalProvider> found. ' +
+      'Wrap your app with <ModalProvider> to enable hooks inside modals.',
+    );
+
     const root = ReactDOM.createRoot(getOrCreateModalRoot());
 
     const handleKeyDown = onKeyDownCallback(['Escape'], () => props.onClose());
