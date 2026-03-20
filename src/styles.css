@@ -1,0 +1,23 @@
+#modal-root > .modal-mask {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-height: 950px) {
+    align-items: flex-start;
+    padding: 20px 0;
+    overflow-y: auto;
+  }
+
+  &.animated {
+    animation: modal-mask-appear 150ms ease-in-out;
+  }
+}
+
+@keyframes modal-mask-appear {
+  from { opacity: 0; }
+}
