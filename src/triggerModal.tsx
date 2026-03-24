@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  GetModalSubmitDataType,
-  ModalConfig,
-  TriggerModalProps,
-} from './types';
+import { GetModalSubmitDataType, TriggerModalProps } from './types';
 import { modalBus } from './modalBus';
 import { ModalProps } from './interfaces';
 
@@ -13,13 +9,11 @@ export default function triggerModal<
 >(
   Modal: React.FC<R>,
   _props: TriggerModalProps<R, T>,
-  { animate }: ModalConfig = { animate: true },
 ): Promise<T | undefined> {
   return new Promise((resolve) => {
     const dispatched = modalBus.show({
       Modal: Modal as React.FC<any>,
       props: _props,
-      config: { animate },
       resolve,
     });
 

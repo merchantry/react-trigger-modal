@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import { modalBus } from './modalBus';
 import { ModalEntry } from './types';
 import { useOnKeyDown } from './hooks/useOnKeyDown';
-import { classNames, disableBodyScroll, enableBodyScroll } from './utils/html';
+import { disableBodyScroll, enableBodyScroll } from './utils/html';
 
 export function ModalProvider({ children }: { children: React.ReactNode }) {
   const isMounted = useIsMounted();
@@ -49,7 +49,7 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
 
     const modalContainer = (
       <div
-        className={classNames('modal-mask', modal.config.animate && 'animated')}
+        className="modal-mask"
         onMouseDown={onModalMaskClick}
       >
         <modal.Modal {...modal.props} onClose={onClose} />
