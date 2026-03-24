@@ -1,16 +1,4 @@
-import React from 'react';
-
-type ModalConfig = { animate: boolean };
-
-export type ModalEntry<T = any> = {
-  id: string;
-  Modal: React.FC<any>;
-  props: any;
-  config: ModalConfig;
-  resolve: (data: T | undefined) => void;
-};
-
-type ShowListener = (entry: ModalEntry) => void;
+import { ModalEntry, ShowListener } from './types';
 
 const listeners = new Set<ShowListener>();
 
